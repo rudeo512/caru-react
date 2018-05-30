@@ -1,0 +1,27 @@
+{
+  "name": "phone-book",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-scripts": "1.1.4",
+    "babel-preset-env": "^1.6.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-server": "^3.1.0",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^7.1.2",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "react-hot-loader": "^3.1.3"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --hot --inline --config ./build/webpack.config.js --mode development",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
