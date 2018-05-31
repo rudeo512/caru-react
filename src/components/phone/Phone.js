@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import PhoneForm from './components/PhoneForm';
-import PhoneInfoList from './components/PhoneInfoList';
+import PhoneForm from './PhoneForm';
+import PhoneInfoList from './PhoneInfoList';
 
 class App extends Component {
     id = 2
