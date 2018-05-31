@@ -1,7 +1,7 @@
-const webpack = require('webpack');
 const path = require("path");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-console.log("# __dirname : " + __dirname);
 module.exports = {
     entry: [
         path.resolve(__dirname, '../src/index.js')
@@ -20,17 +20,24 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
+            }, {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader",
+                })
             }
         ]
     },
 
-    resolve: {
-        extensions: ['*', '.js', '.jsx']
-    },
-
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            filename: './index.html'
+        }),
+        new ExtractTextPlugin('style.css')
     ],
+    
     devServer: {
         contentBase: path.resolve(__dirname, '../dist'),
         hot: true
