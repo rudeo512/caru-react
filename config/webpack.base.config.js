@@ -1,17 +1,19 @@
 const path = require("path");
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require("webpack");
 
 module.exports = {
-    entry: [
-        path.resolve(__dirname, '../src/index.js')
-
-    ],
+    entry: {
+        vendor: ["react", "react-dom", 'react-router-dom', 'redux', 'react-redux'],
+        app: path.resolve(__dirname, '../src/index.js')
+    },
 
     output: {
         path: path.resolve(__dirname, '../dist'),
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: '[name].[hash].js',
+        chunkFilename: '[name].[chunkhash].chunk.js'
     },
 
     module: {
@@ -37,7 +39,7 @@ module.exports = {
         }),
         new ExtractTextPlugin('style.css')
     ],
-    
+
     devServer: {
         contentBase: path.resolve(__dirname, '../dist'),
         hot: true

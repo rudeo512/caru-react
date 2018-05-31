@@ -1,5 +1,5 @@
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     optimization: {
@@ -12,8 +12,18 @@ module.exports = {
                 },
             })
         ],
+
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "all"
+                }
+            }
+        }
     },
     plugins: [
         new OptimizeCssAssetsPlugin()
-    ],
+    ]
 }
