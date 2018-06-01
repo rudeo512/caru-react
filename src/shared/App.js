@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
-import {About, Home, Posts} from '../pages';
+import {About, Home, Posts} from '../pages/index.async';
 import Menu from '../components/Menu';
 import Phone from '../components/phone/Phone';
 

@@ -5,7 +5,7 @@ const webpack = require("webpack");
 
 module.exports = {
     entry: {
-        vendor: ["react", "react-dom", 'react-router-dom', 'redux', 'react-redux'],
+        vendor: ["react-hot-loader/patch", "react", "react-dom", 'react-router-dom', 'redux', 'react-redux'],
         app: path.resolve(__dirname, '../src/index.js')
     },
 
@@ -21,7 +21,15 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: ['babel-loader']
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true,
+                        plugins: [
+                            'react-hot-loader/babel'
+                        ]
+                    }
+                },
             }, {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
@@ -37,8 +45,20 @@ module.exports = {
             template: './src/index.html',
             filename: './index.html'
         }),
-        new ExtractTextPlugin('style.css')
+        new ExtractTextPlugin('[name].[hash].css')
     ],
+
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "all"
+                }
+            }
+        }
+    },
 
     devServer: {
         contentBase: path.resolve(__dirname, '../dist'),
