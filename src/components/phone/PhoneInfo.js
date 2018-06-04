@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {deletePhone, updatePhone} from "../../redux/action/phone";
+import {connect} from "react-redux";
 
 class PhoneInfo extends Component {
     static defaultProps = {
@@ -32,9 +34,8 @@ class PhoneInfo extends Component {
     }
 
     handleRemove = () => {
-        // 삭제 버튼이 클릭되면 onRemove 에 id 넣어서 호출
-        const {info, onRemove} = this.props;
-        onRemove(info.id);
+        const {info} = this.props;
+        this.props.deletePhone(info.id);
     }
 
     // editing 값을 반전시키는 함수입니다
@@ -59,7 +60,7 @@ class PhoneInfo extends Component {
         // 수정을 눌렀을땐, 기존의 값이 input에 나타나고,
         // 수정을 적용할땐, input 의 값들을 부모한테 전달해줍니다.
 
-        const {info, onUpdate} = this.props;
+        const {info} = this.props;
         if (!prevState.editing && this.state.editing) {
             // editing 값이 false -> true 로 전환 될 때
             // info 의 값을 state 에 넣어준다
@@ -71,7 +72,8 @@ class PhoneInfo extends Component {
 
         if (prevState.editing && !this.state.editing) {
             // editing 값이 true -> false 로 전환 될 때
-            onUpdate(info.id, {
+            this.props.updatePhone({
+                id: info.id,
                 name: this.state.name,
                 phone: this.state.phone
             });
@@ -130,4 +132,12 @@ class PhoneInfo extends Component {
     }
 }
 
+let mapDispatchToProps = (dispatch) => {
+    return {
+        deletePhone: (id) => dispatch(deletePhone(id)),
+        updatePhone: (phone) => dispatch(updatePhone(phone))
+    }
+}
+
+PhoneInfo = connect(undefined, mapDispatchToProps)(PhoneInfo);
 export default PhoneInfo;

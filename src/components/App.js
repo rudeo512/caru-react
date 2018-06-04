@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
-import {About, Home, Posts} from '../pages/index.async';
-import Menu from '../components/Menu';
-import Phone from '../components/phone/Phone';
+import {About, Home, Posts} from './pages/index.async';
+import Menu from './Menu';
+import Phone from './phone/Phone';
 
 class App extends Component {
     render() {
@@ -15,7 +15,6 @@ class App extends Component {
                     <Route path="/about/:name" component={About}/>
                 </Switch>
                 <Route path="/posts" component={Posts}/>
-
                 <Route exact path="/phone" component={Phone}/>
             </div>
         );

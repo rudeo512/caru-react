@@ -1,25 +1,13 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import PhoneForm from './PhoneForm';
 import PhoneInfoList from './PhoneInfoList';
 
-class App extends Component {
+class Phone extends Component {
     id = 2
     state = {
-        information: [
-            {
-                id: 0,
-                name: '김민준',
-                phone: '010-0000-0000'
-            },
-            {
-                id: 1,
-                name: '홍길동',
-                phone: '010-0000-0001'
-            }
-        ],
         keyword: ''
     }
-
 
     handleChange = (e) => {
         this.setState({
@@ -27,20 +15,6 @@ class App extends Component {
         });
     }
 
-    handleCreate = (data) => {
-        console.log(data);
-        const {information} = this.state;
-        this.setState({
-            information: information.concat({id: this.id++, ...data})
-        })
-    }
-
-    handleRemove = (id) => {
-        const {information} = this.state;
-        this.setState({
-            information: information.filter(info => info.id !== id)
-        })
-    }
 
     handleUpdate = (id, data) => {
         const {information} = this.state;
@@ -53,14 +27,17 @@ class App extends Component {
         })
     }
 
+
     render() {
-        const { information, keyword } = this.state;;
+        const {keyword} = this.state;
+        const {information} = this.props;
         const filteredList = information.filter(
             info => info.name.indexOf(keyword) !== -1
         );
+
         return (
             <div>
-                <PhoneForm onCreate={this.handleCreate}/>
+                <PhoneForm/>
                 <p>
                     <input
                         placeholder="검색 할 이름을 입력하세요.."
@@ -69,13 +46,18 @@ class App extends Component {
                     />
                 </p>
                 <hr/>
-                <PhoneInfoList
-                    data={filteredList}
-                    onRemove={this.handleRemove}
-                    onUpdate={this.handleUpdate}/>
+                <PhoneInfoList data={filteredList}/>
             </div>
         );
     }
 }
 
-export default App;
+
+let mapStateToProps = (state) => {
+    return {
+        information: state.phoneReducer
+    };
+}
+
+Phone = connect(mapStateToProps, null)(Phone);
+export default Phone;

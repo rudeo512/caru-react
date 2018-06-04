@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {addPhone} from '../../redux/action/phone';
 
 class PhoneForm extends Component {
+    id = 0
+
     state = {
         name: '',
         phone: ''
     }
+
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -14,13 +19,15 @@ class PhoneForm extends Component {
     handleSubmit = (e) => {
         // 페이지 리로딩 방지
         e.preventDefault();
-        // 상태값을 onCreate 를 통하여 부모에게 전달
-        this.props.onCreate(this.state);
+
+        this.props.addPhone({
+            "name": this.state.name,
+            "phone": this.state.phone,
+            "id": this.id++
+        });
+
         // 상태 초기화
-        this.setState({
-            name: '',
-            phone: ''
-        })
+        this.setState({name: '', phone: ''});
     }
 
     render() {
@@ -44,5 +51,11 @@ class PhoneForm extends Component {
     }
 }
 
+let mapDispatchToProps = (dispatch) => {
+    return {
+        addPhone: (phone) => dispatch(addPhone(phone))
+    }
+}
 
+PhoneForm = connect(undefined, mapDispatchToProps)(PhoneForm);
 export default PhoneForm;
