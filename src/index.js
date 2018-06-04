@@ -19,6 +19,11 @@ ReactDOM.render((
         </BrowserRouter>
     </AppContainer>), document.getElementById('root'));
 
+
 if (module.hot) {
-    module.hot.accept();
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('./redux/reducer', () => {
+        const nextRootReducer = require('./redux/reducer/index');
+        store.replaceReducer(nextRootReducer);
+    });
 }

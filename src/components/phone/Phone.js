@@ -4,7 +4,6 @@ import PhoneForm from './PhoneForm';
 import PhoneInfoList from './PhoneInfoList';
 
 class Phone extends Component {
-    id = 2
     state = {
         keyword: ''
     }
