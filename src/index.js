@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
-import './index.css';
 import Root from './client/Root';
+import './index.css';
 
 ReactDOM.render((
     <AppContainer>
